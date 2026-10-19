@@ -50,7 +50,7 @@ jar {
 // Publish with: MODRINTH_KEY=... ./gradlew modrinth (CI does this on v* tags).
 modrinth {
 	token = System.getenv("MODRINTH_KEY")
-	projectId = "gif-screenshots" // shortcut: placeholder slug, set to the real Modrinth project before first release
+	projectId = "gif-screenshots"
 	versionNumber = "${project.mod_version}+${project.minecraft_version}"
 	versionName = "GIF Screenshots ${project.mod_version} for Minecraft ${project.minecraft_version}"
 	versionType = "release"
