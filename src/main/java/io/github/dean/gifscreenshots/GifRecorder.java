@@ -63,7 +63,7 @@ public final class GifRecorder {
 		Minecraft mc = Minecraft.getInstance();
 		int w = outW, h = outH;
 		BlockingQueue<BufferedImage> q = queue;
-		Screenshot.takeScreenshot(mc.gameRenderer.mainRenderTarget(), img -> {
+		Screenshot.takeScreenshot(mc.getMainRenderTarget(), img -> {
 			try {
 				q.offer(scale(img, w, h)); // encoder behind: frame dropped
 			} finally {
