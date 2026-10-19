@@ -15,7 +15,7 @@ public class GifScreenshotsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		KeyMapping key = KeyMappingHelper.registerKeyMapping(new KeyMapping(
-			"key.gif-screenshots.record", InputConstants.Type.KEYBOARD, InputConstants.KEY_F9, KeyMapping.Category.MISC));
+			"key.gif-screenshots.record", InputConstants.Type.KEYSYM, InputConstants.KEY_F9, KeyMapping.Category.MISC));
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			while (key.consumeClick()) GifRecorder.start(client);
 		});
