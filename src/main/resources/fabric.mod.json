@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "gif-screenshots",
+  "version": "${version}",
+  "name": "GIF Screenshots",
+  "description": "Record a short animated GIF screenshot with a keybind.",
+  "authors": ["deanxbox"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["io.github.dean.gifscreenshots.GifScreenshotsClient"],
+    "modmenu": ["io.github.dean.gifscreenshots.ModMenuIntegration"]
+  },
+  "mixins": ["gif-screenshots.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

@@ -1,0 +1,70 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version "${loom_version}"
+	id 'com.modrinth.minotaur' version '2.10.0'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	compileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
+}
+
+processResources {
+	inputs.property "version", project.version
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
+
+jar {
+	from("LICENSE") {
+		rename { "${it}_${project.base.archivesName.get()}" }
+	}
+}
+
+// Publish with: MODRINTH_KEY=... ./gradlew modrinth (CI does this on v* tags).
+modrinth {
+	token = System.getenv("MODRINTH_KEY")
+	projectId = "gif-screenshots" // shortcut: placeholder slug, set to the real Modrinth project before first release
+	versionNumber = "${project.mod_version}+${project.minecraft_version}"
+	versionName = "GIF Screenshots ${project.mod_version} for Minecraft ${project.minecraft_version}"
+	versionType = "release"
+	uploadFile = tasks.named("jar")
+	gameVersions = project.modrinth_game_versions.split(",").collect { it.trim() }
+	loaders = ["fabric"]
+	changelog = providers.provider {
+		def text = file("CHANGELOG.md").text
+		def matcher = text =~ /(?ms)^## \[?${java.util.regex.Pattern.quote(project.mod_version)}\]?[^\r\n]*\R(.*?)(?=^## |\z)/
+		if (!matcher.find()) throw new GradleException("CHANGELOG.md has no '## ${project.mod_version}' section")
+		matcher.group(1).trim()
+	}
+	dependencies {
+		required.project "fabric-api"
+		optional.project "modmenu"
+	}
+}

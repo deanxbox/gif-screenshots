@@ -1,0 +1,10 @@
+{
+  "key.gif-screenshots.record": "Record GIF Screenshot",
+  "gif-screenshots.title": "GIF Screenshots",
+  "gif-screenshots.seconds": "Recording time: %s s",
+  "gif-screenshots.fps": "FPS: %s",
+  "gif-screenshots.width": "GIF width: %s px",
+  "gif-screenshots.recording": "Recording GIF...",
+  "gif-screenshots.saved": "GIF saved: %s",
+  "gif-screenshots.failed": "GIF failed: %s"
+}
