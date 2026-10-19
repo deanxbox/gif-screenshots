@@ -6,6 +6,7 @@
   "description": "Record a short animated GIF screenshot with a keybind.",
   "authors": ["deanxbox"],
   "license": "MIT",
+  "icon": "assets/gif-screenshots/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": ["io.github.dean.gifscreenshots.GifScreenshotsClient"],
